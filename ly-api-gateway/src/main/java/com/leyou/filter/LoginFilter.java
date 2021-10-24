@@ -19,8 +19,8 @@ import java.util.List;
  * @Author: taft
  * @Date: 2018-9-7 15:06
  */
-@Component
-@EnableConfigurationProperties({JwtProperties.class, FilterProperties.class})
+//@Component
+//@EnableConfigurationProperties({JwtProperties.class, FilterProperties.class})
 public class LoginFilter extends ZuulFilter {
 
     @Autowired

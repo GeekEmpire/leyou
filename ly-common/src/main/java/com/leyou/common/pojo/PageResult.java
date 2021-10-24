@@ -1,7 +1,15 @@
 package com.leyou.common.pojo;
 
+import lombok.Data;
+
 import java.util.List;
 
+/**
+ * @Author ASUS
+ * @Description 分页实体
+ * @Date 2021/9/14 16:51
+ **/
+@Data
 public class PageResult<T> {
     private Long total;// 总条数
     private Long totalPage;// 总页数
@@ -19,29 +27,5 @@ public class PageResult<T> {
         this.total = total;
         this.totalPage = totalPage;
         this.items = items;
-    }
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public List<T> getItems() {
-        return items;
-    }
-
-    public void setItems(List<T> items) {
-        this.items = items;
-    }
-
-    public Long getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(Long totalPage) {
-        this.totalPage = totalPage;
     }
 }

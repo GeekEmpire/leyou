@@ -14,24 +14,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Author: taft
- * @Date: 2018-8-19 17:19
- */
+ * @Author xmz
+ * @Description 商品 spu为
+ * SPU：Standard Product Unit （标准产品单位） ，一组具有共同属性的商品集
+ * SKU：Stock Keeping Unit（库存量单位），SPU商品集因具体特性不同而细分的每个商品
+ * @Date 2021/10/15 17:35
+ **/
 @RestController
+@RequestMapping("goods")
 public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
 
-
-
+    /**
+     * @Author xmz
+     * @Description 按条件分页查询spu商品列表：公共属性部分
+     * @Date 2021/10/17 15:21
+     **/
     @GetMapping("spu/page")
     public ResponseEntity<PageResult<SpuBO>> queryGoods(
             @RequestParam(value = "key", required = false)String key,
             @RequestParam(value = "saleable", required = false)Boolean saleable,
             @RequestParam(value = "page",defaultValue = "1")Integer page,
-            @RequestParam(value = "rows",defaultValue = "5")Integer rows
-    ){
+            @RequestParam(value = "rows",defaultValue = "5")Integer rows){
+//        System.out.println(key+" "+saleable+" "+ page+" "+ rows);
         PageResult<SpuBO> pageResult = goodsService.queryGoods(page,rows,saleable,key);
         if (pageResult==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -39,9 +46,9 @@ public class GoodsController {
         return ResponseEntity.ok(pageResult);
     }
 
+
     @PostMapping("goods")
     public ResponseEntity<Void> saveGoods(@RequestBody SpuBO spuBO){
-
         try {
             this.goodsService.saveGoods(spuBO);
             return new ResponseEntity<>(HttpStatus.CREATED);

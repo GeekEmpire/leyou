@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 /**
- * @Author: taft
- * @Date: 2018-8-19 16:21
- */
+ * @Author xmz
+ * @Description 商品规格
+ * @Date 2021/10/15 17:35
+ **/
 @RestController
 @RequestMapping("spec")
 public class SpecificationController {
@@ -32,6 +34,11 @@ public class SpecificationController {
     }
 
     //params?gid=1
+    /**
+     * @Author xmz
+     * @Description 根据组id或分类id，查询规格参数
+     * @Date 2021/10/17 19:31
+     **/
     @GetMapping("params")
     public ResponseEntity<List<SpecParam>> querySpecParamByGid(
             @RequestParam(value = "gid", required = false) Long gid,

@@ -6,21 +6,21 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/heima
     username: root
-    password: root
+    password: WANan123
 
-  rabbitmq:
-      host: 192.168.206.66
-      username: leyou
-      password: 123321
-      virtual-host: /leyou
-      template:
-        retry:
-          enabled: true
-          initial-interval: 10000ms
-          max-interval: 300000ms
-          multiplier: 2
-        exchange: ly.item.exchange
-      publisher-confirms: true
+#  rabbitmq:
+#      host: 192.168.206.66
+#      username: leyou
+#      password: 123321
+#      virtual-host: /leyou
+#      template:
+#        retry:
+#          enabled: true
+#          initial-interval: 10000ms
+#          max-interval: 300000ms
+#          multiplier: 2
+#        exchange: ly.item.exchange
+#      publisher-confirms: true
 
 eureka:
   client:

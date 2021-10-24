@@ -1,43 +1,23 @@
 package com.leyou.item.service;
 
-import com.leyou.item.mapper.CategoryMapper;
 import com.leyou.item.pojo.Category;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: taft
- * @Date: 2018-8-16 16:15
- */
-@Service
-public class CategoryService {
-    @Autowired
-    private CategoryMapper categoryMapper;
+ * @Description CategoryService
+ * @Author xmz
+ * @Date 16:53
+ **/
+public interface CategoryService {
+    /**
+     * @Author xmz
+     * @Description 根据pid查询分类
+     * @Date 2021/9/17 14:25
+     **/
+    public List<Category> findCategoryByPid(Long pid);
 
-    public List<Category> findCategoryByPid(Long pid) {
-        Category category = new Category();
-        //查询使用通用mapper，由于条件不是id主键所以要封装对象中
-        category.setParentId(pid);
+    public List<String> queryCategoryNameByCids(List<Long> cids);
 
-        return categoryMapper.select(category);
-    }
-
-
-    public List<String> queryCategoryNameByCids(List<Long> cids) {
-
-        List<Category> categoryList = categoryMapper.selectByIdList(cids);
-
-        List<String> names = new ArrayList<>();
-
-        for (Category category : categoryList) {
-            names.add(category.getName());
-        }
-
-
-        return names ;
-    }
+    List<Category> queryByBrandId(Long bid);
 }

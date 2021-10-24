@@ -25,14 +25,19 @@ zuul:
     auth-service: /auth/** # 将授权微服务映射到/auth/**
     cart-service: /cart/**
     order-service: /order/**
+    upload-service:  # 原来没有这个
+      path: /upload/**
+      serviceId: upload-service
+      strip-prefix: false
 
   add-host-header: true
   sensitive-headers:  #设置zuul的过滤头为空（所有的头信息全部展示）
 
-  #忽略服务列表
+# 图片上传是文件的传输，如果也经过Zuul网关的代理，文件就会经过多次网路传输，造成不必要的网络负担
+  #忽略服务列表,不通过网关
   ignored-services:
-    - upload-service
-  # 忽略upload-service服务
+    - upload-service   # 忽略upload-service服务
+
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)
   ReadTimeout: 2000 # 通信超时时间(ms)

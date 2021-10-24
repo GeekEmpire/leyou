@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Author: taft
- * @Date: 2018-8-16 17:55
- */
+ * @Author ASUS
+ * @Description
+ * @Date 2021/9/14 16:50
+ **/
 @RestController
 @RequestMapping("brand")
 public class BrandController {
@@ -21,6 +22,11 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    /**
+     * @Author xmz
+     * @Description 在后端分页查询品牌
+     * @Date 2021/9/17 11:54
+     **/
     @GetMapping("page")
     public ResponseEntity<PageResult<Brand>> queryBrandByPage(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -36,14 +42,53 @@ public class BrandController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * @Author xmz
+     * @Description 添加品牌
+     * @Date 2021/9/17 14:23
+     **/
     @PostMapping
     public ResponseEntity<Void> saveBrand(Brand brand, @RequestParam("cids")List<Long> cids){
+//        System.out.println(brand.getName());
         brandService.saveBrand(brand,cids);
-
         return new ResponseEntity<>(HttpStatus.CREATED);//201
 
     }
 
+    /**
+     * @Author xmz
+     * @Description 修改品牌
+     * @Date 2021/9/27 15:53
+     **/
+    @PutMapping
+    public ResponseEntity<Void> updateBrand(Brand brand, @RequestParam("cids")List<Long> cids){
+//        System.out.println(brand);
+        boolean re = brandService.updateBand(brand,cids);
+        if(re == false){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);//202
+    }
+
+    /**
+     * @Author xmz
+     * @Description 删除品牌
+     * @Date 2021/10/17 15:15
+     **/
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBrand(@RequestParam("id")Long id){
+        boolean re = brandService.deleteBrand(id);
+        if(re == false){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);//202
+    }
+
+    /**
+     * @Author xmz
+     * @Description 通过分类id查询对应的品牌
+     * @Date 2021/10/17 15:14
+     **/
     @GetMapping("cid/{cid}")
     public ResponseEntity<List<Brand>> queryBrandsByCategoryId(@PathVariable("cid")Long cid){
         List<Brand> brandList = brandService.queryBrandsByCategoryId(cid);

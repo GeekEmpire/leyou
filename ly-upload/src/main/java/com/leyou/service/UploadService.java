@@ -18,13 +18,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Author: taft
- * @Date: 2018-8-17 17:14
- */
+ * @Author xmz
+ * @Description 文件上传，暂时没用fastDFS
+ * @Date 2021/9/27 16:17
+ **/
 @Service
 public class UploadService {
 
     private Logger logger = LoggerFactory.getLogger(UploadController.class);
+    //不使用fastDFS
     @Autowired
     FastFileStorageClient storageClient;
 
@@ -33,6 +35,7 @@ public class UploadService {
             //第一步校验文件是否是许可文件
             List<String> suffixs = Arrays.asList("image/png", "image/jpeg");
             String contentType = file.getContentType();
+            System.out.println(contentType);
             if (!suffixs.contains(contentType)){
                 logger.info("这个类型我的服务器不识别{}",contentType);
                 return null;
@@ -47,6 +50,7 @@ public class UploadService {
                 return null;
             }
 
+
             // 2、将图片上传到FastDFS
             // 2.1、获取文件后缀名
             String extension = StringUtils.substringAfterLast(file.getOriginalFilename(), ".");
@@ -55,6 +59,20 @@ public class UploadService {
                     file.getInputStream(), file.getSize(), extension, null);
             // 2.3、返回完整路径
             return "http://image.leyou.com/" + storePath.getFullPath();
+
+            /*
+            File dir = new File("F:\\file\\heima\\upload");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            // 2.2、保存图片
+            file.transferTo(new File(dir, file.getOriginalFilename()));
+
+            // 2.3、拼接图片地址
+            String url = "http://image.leyou.com/upload/" + file.getOriginalFilename();
+
+            return url;
+            */
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -27,7 +27,7 @@ public class FdfsTest {
     //普通上传
     @Test
     public void testUpload() throws FileNotFoundException {
-        File file = new File("D:/test/cl.jpg");
+        File file = new File("F:/test/0.jpg");
         // 上传并且生成缩略图
         StorePath storePath = this.storageClient.uploadFile(
                 new FileInputStream(file), file.length(), "jpg", null);
@@ -40,7 +40,7 @@ public class FdfsTest {
     //上传并创建缩略图
     @Test
     public void testUploadAndCreateThumb() throws FileNotFoundException {
-        File file = new File("D:/test/cl.jpg");
+        File file = new File("F:/test/0.jpg");
         // 上传并且生成缩略图
         StorePath storePath = this.storageClient.uploadImageAndCrtThumbImage(
                 new FileInputStream(file), file.length(), "jpg", null);
